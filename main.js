@@ -25,23 +25,51 @@
 
 //                      -----Использование шаблонизатора-----
 // Создаем index.html и делаем как вверху
+// const express = require('express')
+// const app = express()
+
+// app.set('view engine', 'ejs') // метод set - можно настраивать разные настройки к приложению с помощью различных шаблонизаторов в данном случае ejs. view engine - движок для отображения шаблонов, ejs - значение шаблонизатора
+
+// app.get('/', (req, res) => {
+//     // res.sendFile(__dirname +'/index.html') // __dirname - константа и при обращение к ней получаем полный путь к папке
+//     // //(из текущей папки выбираем index.html)
+//     res.render('index')             // отображение файлов через шаблонизатор используют другой метод render. После этого не нужно передовать полный путь к текущей папке - просто название 'index'
+// })
+
+// app.get('/about', (req, res) => {
+//     res.send('Про нас')
+// });
+
+// app.get('/user/:username/:id', (req, res) => {
+//     res.send(`User ID: ${req.params.id}. Username: ${req.params.username}`)
+// });
+
+// const PORT = 3000
+// app.listen(PORT, () =>{
+//     console.log(`Server started: http://localhost:${PORT}`)
+// })
+
+// Подключение шаблонизатора: EJS - npm i ejs;
+//     ====> после запуска сервера - выдается ошибка - указывающая на wiew;
+// нужно создать папку views и поместить index.html - после этого будет все рано ошибка т.к надо изменить расширение index.html на index.ejs
+
+//                      =====>Переписываю вверхнии значения <====
 const express = require('express')
+
 const app = express()
 
-app.set('view engine', 'ejs') // метод set - можно настраивать разные настройки к приложению с помощью различных шаблонизаторов в данном случае ejs. view engine - движок для отображения шаблонов, ejs - значение шаблонизатора
+app.set('view engine', 'ejs') // подключение движка и расширения
 
 app.get('/', (req, res) => {
-    // res.sendFile(__dirname +'/index.html') // __dirname - константа и при обращение к ней получаем полный путь к папке
-    // //(из текущей папки выбираем index.html)
-    res.render('index')             // отображение файлов через шаблонизатор используют другой метод render. После этого не нужно передовать полный путь к текущей папке - просто название 'index'
+    res.render('index') // отображение файлов через шаблонизатор
 })
 
 app.get('/about', (req, res) => {
-    res.send('Про нас')
+    res.render('about')
 });
 
-app.get('/user/:username/:id', (req, res) => {
-    res.send(`User ID: ${req.params.id}. Username: ${req.params.username}`)
+app.get('/user/:username/', (req, res) => {
+    res.render('user', {username: req.params.username}) //чтобы передать информацию в никий определеный шаблон нужно указать 2 параметра. Ив качестве параметра указываем некий обьект {}, наш обьект будет состоять из одгого свойства username  а в качестве значения мы обращаемся к req.params.username - (т.е мы обhащаемся к username  а в качестве этого свойства мы передаем то что получиле из url адреса )
 });
 
 const PORT = 3000
@@ -49,6 +77,4 @@ app.listen(PORT, () =>{
     console.log(`Server started: http://localhost:${PORT}`)
 })
 
-// Подключение шаблонизатора: EJS - npm i ejs;
-//     ====> после запуска сервера - выдается ошибка - указывающая на wiew;
-// нужно создать папку views и поместить index.html - после этого будет все рано ошибка т.к надо изменить расширение index.html на index.ejs
+// Заходим в папку views - создаем about.ejs, user.ejs
