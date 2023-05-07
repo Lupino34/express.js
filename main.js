@@ -59,7 +59,7 @@ const express = require('express')
 const app = express()
 
 app.set('view engine', 'ejs') // подключение движка и расширения
-app.use(express.static('public')) // use - статическое по, - подключение стилей style.css в папке public
+app.use(express.static('public')) // use - статическое по, (обращаемся к express, обращаемся к функции static, и указываем какая папка является статической ('public')- подключение стилей style.css в папке public. Заходим в файл html и в link прописываем путь из ходя из того что мы уже находимся в статической папке - /css/style.css
 app.get('/', (req, res) => {
     res.render('index') // отображение файлов через шаблонизатор
 })
