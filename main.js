@@ -59,7 +59,7 @@ const express = require('express')
 const app = express()
 
 app.set('view engine', 'ejs') // подключение движка и расширения
-
+app.use(express.static('public')) // use - статическое по, - подключение стилей style.css в папке public
 app.get('/', (req, res) => {
     res.render('index') // отображение файлов через шаблонизатор
 })
@@ -69,7 +69,8 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/user/:username/', (req, res) => {
-    res.render('user', {username: req.params.username}) //чтобы передать информацию в никий определеный шаблон нужно указать 2 параметра. Ив качестве параметра указываем некий обьект {}, наш обьект будет состоять из одгого свойства username  а в качестве значения мы обращаемся к req.params.username - (т.е мы обhащаемся к username  а в качестве этого свойства мы передаем то что получиле из url адреса )
+    let data = {username: req.params.username, hobbies: ['Footboll', 'Scate', 'Bascetboll']}
+    res.render('user', data) //чтобы передать информацию в некий определеный шаблон нужно указать 2 параметра. Ив качестве параметра указываем некий обьект {}, наш обьект будет состоять из одгого свойства username  а в качестве значения мы обращаемся к req.params.username - (т.е мы обhащаемся к username  а в качестве этого свойства мы передаем то что получиле из url адреса ). -----устанавливаем свойство hobbies[внутри масива описываем ] 
 });
 
 const PORT = 3000
@@ -78,3 +79,6 @@ app.listen(PORT, () =>{
 })
 
 // Заходим в папку views - создаем about.ejs, user.ejs
+
+
+// ---------Добавление стилей----------
